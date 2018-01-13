@@ -6,7 +6,7 @@
   <form>
     <ion-item>
       <ion-label floating focus>E-mail</ion-label>
-      <ion-input type="text" name="email" maxlength="10"></ion-input>   
+      <ion-input type="text" name="email" maxlength="40"></ion-input>   
     </ion-item>
   </form>
  
@@ -17,7 +17,7 @@
     </ion-item>
   </form>
   <br>
-  <button ion-button block round>Entrar</button>
+  <button ion-button block round (click)="login()">Entrar</button>
   <button ion-button block outline round>Registrar</button>
 
 
