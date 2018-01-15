@@ -6,14 +6,14 @@
   <form>
     <ion-item>
       <ion-label floating focus>E-mail</ion-label>
-      <ion-input type="text" name="email" maxlength="40"></ion-input>   
+      <ion-input [(ngModel)]="credenciais.email" name="email" type="text" maxlength="40"></ion-input>   
     </ion-item>
   </form>
  
   <form>
     <ion-item>
       <ion-label floating>Senha</ion-label>
-      <ion-input type="password" name="senha" maxlength="10" ></ion-input>      
+      <ion-input [(ngModel)]="credenciais.senha" name="senha" type="password" maxlength="10" ></ion-input>      
     </ion-item>
   </form>
   <br>
