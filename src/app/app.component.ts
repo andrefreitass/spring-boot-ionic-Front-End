@@ -20,7 +20,10 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Página Inicial', component: 'HomePage' }
+      //Retirar a pagina de login no final pois ela redireciona para tela inicial
+      { title: 'Login', component: 'HomePage' },
+      { title: 'Perfil', component: 'ProfilePage' },
+      { title: 'Categorias', component: 'CategoriasPage' }
     ];
 
   }
