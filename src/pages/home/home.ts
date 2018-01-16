@@ -52,5 +52,10 @@ export class HomePage {
     },
     error => {});   
   }
+
+  //metodo para redirecinar para tela de cadastro
+  signup(){
+    this.navCtrl.push('SignupPage');
+  }
   
 }
