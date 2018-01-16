@@ -37,7 +37,14 @@ export class ProfilePage {
         //buscar imagem do bucket S3  
         this.imagemExiste();     
       },
-    error => {});
+    error => {
+      if(error.status == 403){
+        this.navCtrl.setRoot('HomePage');
+      }
+    });
+    }
+    else{
+      this.navCtrl.setRoot('HomePage');
     }
   }
 
