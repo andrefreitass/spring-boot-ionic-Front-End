@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { FormGroup,FormBuilder,Validators } from '@angular/forms';
+import { CidadeService } from '../../services/domain/cidade.service';
+import { EstadoService } from '../../services/domain/estado.service';
+import { EstadoDTO } from '../../models/estado.dto';
+import { CidadeDTO } from '../../models/cidade.dto';
+import { Response } from '@angular/http/src/static_response';
 
 
 /**
@@ -18,12 +23,16 @@ import { FormGroup,FormBuilder,Validators } from '@angular/forms';
 export class SignupPage {
 
   grupoFormulario: FormGroup;
+  estados: EstadoDTO[];
+  cidades: CidadeDTO[];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public menu:MenuController,
-    public formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder,
+    public cidadeService: CidadeService,
+    public estadoService: EstadoService) {
 
       this.grupoFormulario = this.formBuilder.group({
         nome:['',[Validators.required, Validators.minLength(5),Validators.maxLength(120)]],
@@ -45,14 +54,30 @@ export class SignupPage {
       });
   }
 
+    //metodo para buscar cidade e estado no banco de dados
+    ionViewDidLoad() {
+      this.estadoService.findAll().subscribe(response => {
+        this.estados = response;
+        this.grupoFormulario.controls.estadoId.setValue(this.estados[0].id);
+        this.atualizaCidades();
+      },
+      error => {})
+    }
+
+    atualizaCidades(){
+      let estado_id = this.grupoFormulario.value.estadoId;
+      this.cidadeService.findAll(estado_id).subscribe(response => {
+        this.cidades = response;
+        this.grupoFormulario.controls.cidadeId.setValue(null);
+      },
+      error => {})
+    }
+
   signupUser(){
     console.log("Formulario Enviado com Sucesso");
   }
 
-  //metodo por enquanto nao utilizado
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
-  }
+
   //Padrao do Frame Work, para desabilitar na tela inicial o MENU lateral
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
