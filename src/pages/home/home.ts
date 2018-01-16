@@ -26,13 +26,24 @@ export class HomePage {
   ) {
 
   }
+  //Padrao do Frame Work, para desabilitar na tela inicial o MENU lateral
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
     }
-    
+    //Padrao do Frame Work, para habilitar na tela inicial o MENU lateral
     ionViewDidLeave() {
     this.menu.swipeEnable(true);
     } 
+    //Padrao do Frame Work
+  ionViewDidEnter(){
+    this.autorizacao.atualizaToken()
+      .subscribe(response => {
+      this.autorizacao.loginSucesso(response.headers.get('Authorization'));
+      this.navCtrl.setRoot("CategoriasPage");
+    },
+    error => {});   
+  }  
+
 
   login(){
     this.autorizacao.autenticacao(this.credenciais).subscribe(response => {

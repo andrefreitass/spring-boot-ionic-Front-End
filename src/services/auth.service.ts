@@ -33,6 +33,17 @@ export class AuthService{
         this.storage.setLocalUser(usuarioLocal);
     }
 
+    atualizaToken(){
+        return this.http.post(
+         `${API_CONFIG.baseUrl}/auth/refresh_token`,
+         {},
+         {
+             observe: 'response',
+             responseType: 'text'
+             //coloca text para o Json nao realizar um parse
+         })
+     }
+
     logout(){
         this.storage.setLocalUser(null);
     }
