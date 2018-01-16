@@ -13,13 +13,7 @@ export class ClienteService{
     }
 
     buscaEmail(email: string) : Observable<ClienteDTO>{
-
-        let token = this.store.getLocalUser().token;
-        let autHeader = new HttpHeaders({'Authorization' : 'Bearer ' + token});
-
-        return this.http.get<ClienteDTO>(
-            `${API_CONFIG.baseUrl}/clientes/email?email=${email}`,
-            {'headers': autHeader});
+        return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?email=${email}`);
     }
     //any e um tipo do TypeScript que serve pra todo mundo
     buscaImagemBucket(id : string) : Observable <any>{
