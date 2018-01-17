@@ -33,5 +33,9 @@ export class CategoriasPage {
       this.itens = response;
     }, error => {});    
   }
+
+  exibeProdutos(){
+    this.navCtrl.push('ProdutosPage');
+  }
   
 }
