@@ -39,6 +39,10 @@ loadImageUrls() {
         },
         error => {});
     }
-  }  
+  }
+  
+  detalhaProduto(){
+    this.navCtrl.push('DetalheProdutosPage');
+  }
 
 }
