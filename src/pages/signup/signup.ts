@@ -21,7 +21,6 @@ import { Response } from '@angular/http/src/static_response';
   templateUrl: 'signup.html',
 })
 export class SignupPage {
-
   grupoFormulario: FormGroup;
   estados: EstadoDTO[];
   cidades: CidadeDTO[];
@@ -35,17 +34,17 @@ export class SignupPage {
     public estadoService: EstadoService) {
 
       this.grupoFormulario = this.formBuilder.group({
-        nome:['',[Validators.required, Validators.minLength(5),Validators.maxLength(120)]],
-        email:['',Validators.required,Validators.email],
-        tipo:['',[Validators.required]],
-        cpfOuCnpj:['',[Validators.required,Validators.minLength(11),Validators.maxLength(14)]],
-        senha:['',[Validators.required]],
-        logradouro : ['', [Validators.required]],
-        numero : ['', [Validators.required]],
-        complemento : ['', []],
-        bairro : ['', []],
-        cep : ['', [Validators.required]],
-        telefone1 : ['', [Validators.required]],
+        nome:['Andre Freitas',[Validators.required, Validators.minLength(5),Validators.maxLength(80)]],
+        email:['andrefreitass@gmail.com',[Validators.required,Validators.email]],
+        tipo:['0',[Validators.required]],
+        cpfOuCnpj:['02912849144',[Validators.required,Validators.minLength(11),Validators.maxLength(14)]],
+        senha:['123456',[Validators.required]],
+        logradouro : ['Rua to teste', [Validators.required]],
+        numero : ['123', [Validators.required]],
+        complemento : ['A', []],
+        bairro : ['Mestre D', []],
+        cep : ['73380050', [Validators.required]],
+        telefone1 : ['993271771', [Validators.required]],
         telefone2 : ['', []],
         telefone3 : ['', []],
         estadoId : [null, [Validators.required]],
