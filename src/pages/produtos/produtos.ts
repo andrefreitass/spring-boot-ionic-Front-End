@@ -26,7 +26,19 @@ export class ProdutosPage {
     this.produtoService.buscaCategoria(categoria_id)
       .subscribe(response => {
         this.items = response['content'];
+        this.loadImageUrls();
       }, error =>{});
-
 }
+
+loadImageUrls() {
+    for (var i=0; i<this.items.length; i++) {
+      let item = this.items[i];
+      this.produtoService.buscaImagemBucket(item.id)
+        .subscribe(response => {
+          item.imageUrl = `${API_CONFIG.bucketBaseUrl}/prod${item.id}-small.jpg`;
+        },
+        error => {});
+    }
+  }  
+
 }
