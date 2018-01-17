@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
  import { Observable } from 'rxjs/Rx'; // IMPORTANTE: IMPORT ATUALIZADO
 import { StorageService } from '../services/store.service';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { FiltroMensagem } from '../models/filtroMensagem';
  
  @Injectable()
  export class ErrorInterceptor implements HttpInterceptor {
@@ -38,6 +39,10 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
 
                 case 404:
                 this.error404();
+                break;
+
+                case 422:
+                this.error422(errorObj);
                 break;
 
                 default:
@@ -80,6 +85,21 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
         alerta.present();
      }
 
+     error422(errorObj){
+         let alerta = this.alertaControle.create({
+            title: 'Error de Validacao Dados Invalidos',
+            message: this.listaErros(errorObj.errors),
+            enableBackdropDismiss: false,
+            buttons: [
+                {
+                    text: 'OK'
+                }
+            ]
+            
+         });
+         alerta.present();
+     }
+
      errorDefault(errorObj){
         let alerta = this.alertaControle.create({
             title: 'Error' + errorObj.status + ': ' + errorObj.error ,
@@ -93,8 +113,14 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
         });
         alerta.present();
     }
-
+    private listaErros(messages : FiltroMensagem[]) : string {
+        let s : string = '';
+        for (var i=0; i<messages.length; i++) {
+            s = s + '<p><strong>' + messages[i].fieldName + "</strong>: " + messages[i].message + '</p>';
+        }
+        return s;
  }
+}
  
  export const ErrorInterceptorProvider = {
      provide: HTTP_INTERCEPTORS,

@@ -6,6 +6,8 @@ import { EstadoService } from '../../services/domain/estado.service';
 import { EstadoDTO } from '../../models/estado.dto';
 import { CidadeDTO } from '../../models/cidade.dto';
 import { Response } from '@angular/http/src/static_response';
+import { ClienteService } from '../../services/domain/cliente.service';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 
 /**
@@ -31,7 +33,9 @@ export class SignupPage {
     public menu:MenuController,
     public formBuilder: FormBuilder,
     public cidadeService: CidadeService,
-    public estadoService: EstadoService) {
+    public estadoService: EstadoService,
+    public clienteService: ClienteService,
+    public alertControle: AlertController) {
 
       this.grupoFormulario = this.formBuilder.group({
         nome:['Andre Freitas',[Validators.required, Validators.minLength(5),Validators.maxLength(80)]],
@@ -71,9 +75,32 @@ export class SignupPage {
       },
       error => {})
     }
-
+    //Metodo para enviar o formulario para criar um usuario
   signupUser(){
     console.log("Formulario Enviado com Sucesso");
+    console.log(this.grupoFormulario.value);
+    this.clienteService.inserir(this.grupoFormulario.value)
+    .subscribe(response => {
+      this.mensagemSucesso();
+    },
+    error => {});
+  }
+
+  mensagemSucesso(){
+    let alerta = this.alertControle.create({
+      title: 'Sucesso!',
+      message: 'Cadastro Efetuado com Sucesso',
+      enableBackdropDismiss: false,
+      buttons:[{
+        text: 'Ok',
+        //vai desempilhar as paginas
+        handler: () => {
+          this.navCtrl.pop();
+        }
+      }
+      ]
+    });
+    alerta.present();
   }
 
 
@@ -81,5 +108,7 @@ export class SignupPage {
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
     }
+
+
 
 }
