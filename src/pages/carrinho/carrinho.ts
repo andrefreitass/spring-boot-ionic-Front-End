@@ -4,6 +4,7 @@ import { ItemCarrinho } from '../../models/item-carrinho';
 import { ProdutoService } from '../../services/domain/produto.service';
 import { API_CONFIG } from '../../config/api.config';
 import { CarrinhoService } from '../../services/carrinho.service';
+import { ProdutoDTO } from '../../models/produto.dto';
 
 /**
  * Generated class for the CarrinhoPage page.
@@ -45,4 +46,25 @@ export class CarrinhoPage {
     }
   }
 
+  removeProduto(produto: ProdutoDTO){
+    this.items = this.carrinhoService.removeProduto(produto).itens;
+  }
+
+  incrementaQuantidade(produto: ProdutoDTO){
+    this.items = this.carrinhoService.incrementaQuantidade(produto).itens;
+  }
+
+  decrementaQuantidade(produto: ProdutoDTO){
+    this.items = this.carrinhoService.decrementaQuantidade(produto).itens;
+  }
+
+  total() : number {
+    return this.carrinhoService.total();
+  }
+
+  continuaComprando(){
+    this.navCtrl.setRoot('CategoriasPage');
+  }
+
 }
+

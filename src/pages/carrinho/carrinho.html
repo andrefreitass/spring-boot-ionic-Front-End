@@ -22,8 +22,19 @@
             </ion-thumbnail>
             <h2>{{item.produto.nome}}</h2>
             <p>{{item.produto.preco | currency}}</p>
-            <p>{{item.quantidade}}</p>            
+            <ion-icon class="naoQuebraLinha" name="remove-circle" color="primary" (click)="decrementaQuantidade(item.produto)"></ion-icon>
+            <p class="naoQuebraLinha">{{item.quantidade}}</p>
+            <ion-icon name="add-circle" color="primary" (click)="incrementaQuantidade(item.produto)"></ion-icon>            
+            <ion-icon name="trash" item-end color="danger" (click)="removeProduto(item.produto)"></ion-icon>            
           </ion-item>
+          <ion-item *ngIf="total() > 0">
+            <h1>Total do Carrinho</h1>
+            <h1 item-end>{{total()}}</h1>
+          </ion-item>
+          <ion-item *ngIf="total() <= 0">
+              <h1>Seu Carrinho esta Vazio</h1>              
+            </ion-item>
     </ion-list>   
+    <button ion-button block (click)="continuaComprando()">Continuar Comprando</button>
 
 </ion-content>
