@@ -41,8 +41,8 @@ loadImageUrls() {
     }
   }
   
-  detalhaProduto(){
-    this.navCtrl.push('DetalheProdutosPage');
+  detalhaProduto(produto_id : string){
+    this.navCtrl.push('DetalheProdutosPage', {produto_id: produto_id});    
   }
 
 }
