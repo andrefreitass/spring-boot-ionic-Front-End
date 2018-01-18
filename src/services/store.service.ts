@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { STORAGE_KEYS } from "../config/storage_keys.config";
 import { LocalUser } from "../models/local_user";
+import { Carrinho } from "../models/carrinho";
 
 @Injectable()
 export class StorageService{
@@ -20,6 +21,24 @@ export class StorageService{
         } else {
             localStorage.setItem(STORAGE_KEYS.localUser, JSON.stringify(obj));
         }
+      }
+      
+    getCarrinhoLocal(): Carrinho{
+        let chaveCarrinho = localStorage.getItem(STORAGE_KEYS.carrinho);
+        if (chaveCarrinho != null){
+            return JSON.parse(chaveCarrinho);
+        }else {
+            return null;
+        }
 
     }
-}
+    setCarrinhoLocal(obj : Carrinho){
+        if(obj != null){
+            localStorage.setItem(STORAGE_KEYS.carrinho, JSON.stringify(obj));
+            
+        } else {
+            localStorage.removeItem(STORAGE_KEYS.carrinho);
+        }
+
+    }
+} 
