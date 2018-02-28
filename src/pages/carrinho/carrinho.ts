@@ -66,5 +66,9 @@ export class CarrinhoPage {
     this.navCtrl.setRoot('CategoriasPage');
   }
 
+  finalizarCompra(){
+    this.navCtrl.push('EscolhaEnderecoPage');
+  }
+
 }
 
